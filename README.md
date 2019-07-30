@@ -6,8 +6,7 @@ You will need to download WiringPi onto your computer
 for compiling JNI Wrapper
 - (REPLACE WriteJNI with whatever file name it is)
 - (SAME with libmyWrite.so to whatever libmy"blank")
-
-(For Files that use wiring pi add -lwiringPi (to the c code compiler)
+- (For Files that use wiring pi add -lwiringPi (to the c code compiler)
 
 •	Compile Java code // 
 	javac (name).java –h .
