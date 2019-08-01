@@ -19,3 +19,6 @@ for compiling JNI Wrapper
 
 •	the rest // 
 	sudo cp libmyWrite.so /usr/lib
+	 
+
+	 "this is a test"
