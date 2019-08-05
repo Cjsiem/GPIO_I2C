@@ -21,7 +21,6 @@
  * 
  */
 
-
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
@@ -72,7 +71,7 @@ void I2C_Reading(int addr, char *buf, int bytes){
     }
 }
 
-JNIEXPORT jint JNICALL Java_I2C_1ReadWrite_cWrite
+JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_i2c_JNI_I2C_1ReadWrite_cWrite
   (JNIEnv *env, jobject jobj, jbyteArray data, jint address){
 	  int n = (*env)->GetArrayLength(env, data);
     jboolean isCopy;
@@ -80,7 +79,7 @@ JNIEXPORT jint JNICALL Java_I2C_1ReadWrite_cWrite
     return I2C_Writing(address, buf, n);
 }
   
-  JNIEXPORT jintArray JNICALL Java_I2C_1ReadWrite_cRead
+JNIEXPORT jintArray JNICALL Java_com_rst_gpioi2c_i2c_JNI_I2C_1ReadWrite_cRead
   (JNIEnv *env, jobject jobj, jint size, jint address){
 	  	char* buf;
 	char temp[size];

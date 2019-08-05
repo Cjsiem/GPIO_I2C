@@ -20,7 +20,6 @@
  * 
  * 
  */
-
 #include <jni.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -39,7 +38,7 @@
 #define LOW  0
 #define HIGH 1
 
-JNIEXPORT jint JNICALL Java_GPIOMethods_cExport
+JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cExport
   (JNIEnv *env, jclass jobj, jint pin){
 	  
     char buffer[BUFFER_MAX];
@@ -68,7 +67,7 @@ JNIEXPORT jint JNICALL Java_GPIOMethods_cExport
     return(0);
   }
 
-JNIEXPORT jint JNICALL Java_GPIOMethods_cUnExport
+JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cUnExport
   (JNIEnv *env, jclass jobj, jint pin){
 	char buffer[BUFFER_MAX];
     ssize_t bytes_written;
@@ -86,7 +85,7 @@ JNIEXPORT jint JNICALL Java_GPIOMethods_cUnExport
     return(0);
   }
   
-JNIEXPORT jint JNICALL Java_GPIOMethods_cDirection
+JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cDirection
   (JNIEnv *env, jclass jobj, jint pin, jint dir){
 	  
     static const char s_directions_str[]  = "in\0out";
@@ -108,7 +107,7 @@ JNIEXPORT jint JNICALL Java_GPIOMethods_cDirection
     return(0);
   }
   
-  JNIEXPORT jint JNICALL Java_GPIOMethods_cGPIOWrite
+JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cGPIOWrite
   (JNIEnv *env, jclass jobj, jint pin, jint value){
     static const char s_values_str[] = "01";
     
@@ -131,7 +130,7 @@ JNIEXPORT jint JNICALL Java_GPIOMethods_cDirection
     return(0);
 }
 
-JNIEXPORT jint JNICALL Java_GPIOMethods_cGPIORead
+JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cGPIORead
   (JNIEnv *env, jclass jobj, jint pin){
 	  
 
@@ -156,7 +155,7 @@ JNIEXPORT jint JNICALL Java_GPIOMethods_cGPIORead
     return(atoi(value_str));
 }
 
-JNIEXPORT jint JNICALL Java_GPIOMethods_cReadDirection
+JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cReadDirection
   (JNIEnv *env, jobject job, jint pin){
     char path[DIRECTION_MAX];
     char value_str[3];

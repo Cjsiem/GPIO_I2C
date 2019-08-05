@@ -21,10 +21,14 @@
  *
  */
 
+package com.rst.gpioi2c;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
+import com.rst.gpioi2c.gpio.*;
+import com.rst.gpioi2c.i2c.*;
+import com.rst.gpioi2c.gpio.JNI.GPIOMethods;
+import com.rst.gpioi2c.i2c.JNI.I2C_ReadWrite;
 
 public class I2C_AND_GPIO {
 

@@ -53,7 +53,7 @@ void myInterrupt(void)
 }
 int pinArray[27] = {30,31, 8,9,7, 21,22,11, 10, 13, 12, 14, 26, 23, 15, 16, 27, 0, 1, 24, 28, 29, 3, 4, 5, 6, 25};
 
-JNIEXPORT jint JNICALL Java_Press_cPress
+JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_Press_cPress
 (JNIEnv *env, jobject jobj, jint pin, jint d)
 {
     isr_count = 0;
@@ -91,7 +91,7 @@ JNIEXPORT jint JNICALL Java_Press_cPress
 
 }
 
-JNIEXPORT jint JNICALL Java_Press_cStopInterrupt
+JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_Press_cStopInterrupt
   (JNIEnv *env, jobject jobj){
     pthread_mutex_lock(&isr_mtx);
     isr_count = 0;

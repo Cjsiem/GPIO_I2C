@@ -20,12 +20,14 @@
  * 
  * 
  */
-
+package com.rst.gpioi2c.i2c;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-class GUI_I2C extends JPanel {
+import com.rst.gpioi2c.i2c.JNI.*;
+
+public class GUI_I2C extends JPanel {
 
         JPanel readPanel = new JPanel();
         JPanel writePanel = new JPanel();

@@ -1,0 +1,19 @@
+cd /home/pi/git/GPIO_I2C
+mkdir bin
+javac -d bin /home/pi/git/GPIO_I2C/src/com/rst/gpioi2c/gpio/JNI/GPIOMethods.java /home/pi/git/GPIO_I2C/src/com/rst/gpioi2c/gpio/JNI/Press.java -h ./src/native/include
+javac  -d bin /home/pi/git/GPIO_I2C/src/com/rst/gpioi2c/i2c/JNI/I2C_ReadWrite.java -h ./src/native/include
+javac -cp bin -d bin /home/pi/git/GPIO_I2C/src/com/rst/gpioi2c/gpio/*.java 
+javac -cp bin -d bin /home/pi/git/GPIO_I2C/src/com/rst/gpioi2c/i2c/*.java
+javac -cp bin -d bin /home/pi/git/GPIO_I2C/src/com/rst/gpioi2c/*.java
+cd /home/pi/git/GPIO_I2C/src/native/c
+gcc -o libmyGPIOMethods.so -shared -fPIC -I/usr/lib/jvm/default-java/include -I/usr/lib/jvm/default-java/include/linux GPIOMethods.c -lc 
+gcc -o libmyPress.so -shared -fPIC -I/usr/lib/jvm/default-java/include -I/usr/lib/jvm/default-java/include/linux Press.c -lc -lwiringPi 
+gcc -o libmyI2C_ReadWrite.so -shared -fPIC -I/usr/lib/jvm/default-java/include -I/usr/lib/jvm/default-java/include/linux I2C_ReadWrite.c -lc 
+sudo cp libmyGPIOMethods.so /usr/lib
+sudo cp libmyPress.so /usr/lib
+sudo cp libmyI2C_ReadWrite.so /usr/lib
+cd /home/pi/git/GPIO_I2C
+java -cp bin com.rst.gpioi2c.Complete
+
+
+

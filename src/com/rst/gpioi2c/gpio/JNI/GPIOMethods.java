@@ -1,4 +1,4 @@
-
+package com.rst.gpioi2c.gpio.JNI;
 
 public class GPIOMethods
 {
@@ -11,13 +11,13 @@ public class GPIOMethods
   
                           
   static
-  {
+  {  
      System.loadLibrary("myGPIOMethods");
   }          
   
   public static void main (String[] args) {
     GPIOMethods obj = new GPIOMethods();
-    obj.cDirection(17, 0);
+    obj.cExport(17);
 		System.out.println(obj.cReadDirection(17));
 	}
   

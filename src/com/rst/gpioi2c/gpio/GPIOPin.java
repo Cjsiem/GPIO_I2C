@@ -20,7 +20,9 @@
  *
  *
  */
+package com.rst.gpioi2c.gpio;
 
+import com.rst.gpioi2c.gpio.JNI.*;
 
 public class GPIOPin {
 

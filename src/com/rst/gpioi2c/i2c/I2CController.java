@@ -24,7 +24,7 @@ if not, write to the Free Software
 *
 *
 */
-
+package com.rst.gpioi2c.i2c;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,6 +32,8 @@ import java.awt.event.*;
 import java.io.*;
 import java.lang.Runtime.*;
 import java.util.*;
+import com.rst.gpioi2c.i2c.JNI.*;
+import com.rst.gpioi2c.i2c.*;
 
 public class I2CController {
 

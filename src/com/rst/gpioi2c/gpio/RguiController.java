@@ -24,6 +24,8 @@ if not, write to the Free Software
 *
 *
 */
+package com.rst.gpioi2c.gpio;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

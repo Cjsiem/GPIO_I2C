@@ -24,14 +24,15 @@ if not, write to the Free Software
 *
 *
 */
-
+package com.rst.gpioi2c.gpio;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-class Rgui extends JPanel {
 
-        int pin;
+public class Rgui extends JPanel {
+
+        public int pin;
         JLabel label = new JLabel();
         
         ButtonGroup group = new ButtonGroup();

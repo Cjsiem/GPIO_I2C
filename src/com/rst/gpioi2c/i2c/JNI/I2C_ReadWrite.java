@@ -20,15 +20,20 @@
  * 
  * 
  */
-
+package com.rst.gpioi2c.i2c.JNI;
 
 public class I2C_ReadWrite
 {
-  native int cWrite(byte[] data, int address);
-  native int[] cRead(int amount, int address);
+  public native int cWrite(byte[] data, int address);
+  public native int[] cRead(int amount, int address);
                              
   static
   {
      System.loadLibrary("myI2C_ReadWrite");
   }      
+   public static void main (String[] args) {
+    I2C_ReadWrite obj = new I2C_ReadWrite();
+    obj.cRead(1,12);
+
+	}
 }

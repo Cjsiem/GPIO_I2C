@@ -20,16 +20,18 @@
  *
  *
  */
+package com.rst.gpioi2c.gpio;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
+import com.rst.gpioi2c.gpio.*;
+import com.rst.gpioi2c.gpio.JNI.GPIOMethods;
 public class WholeGUI extends JPanel {
 
 
-
-
+    
+        
         public WholeGUI() {
 		this.setLayout(new GridLayout(0,1));
         }
