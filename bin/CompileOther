@@ -1,0 +1,6 @@
+echo Compiling gpio
+javac -cp bin -d bin /home/pi/git/GPIO_I2C/src/com/rst/gpioi2c/gpio/*.java 
+echo Compiling i2c
+javac -cp bin -d bin /home/pi/git/GPIO_I2C/src/com/rst/gpioi2c/i2c/*.java
+echo Compiling gpioi2c
+javac -cp bin -d bin /home/pi/git/GPIO_I2C/src/com/rst/gpioi2c/*.java

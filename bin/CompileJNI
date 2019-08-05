@@ -1,0 +1,4 @@
+echo Compiling GPIOMethods and Press
+javac -d bin $HOME/git/GPIO_I2C/src/com/rst/gpioi2c/gpio/JNI/GPIOMethods.java ./src/com/rst/gpioi2c/gpio/JNI/Press.java -h $HOME/git/GPIO_I2C/src/native/include
+echo Compiling I2C_ReadWrite
+javac -d bin $HOME/git/GPIO_I2C/src/com/rst/gpioi2c/i2c/JNI/I2C_ReadWrite.java -h ./src/native/include
