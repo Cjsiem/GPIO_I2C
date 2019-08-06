@@ -74,7 +74,12 @@ public class RguiController {
                     rgui.output.setText(Integer.toString(gpio.readPin()));
                 }
                 else if(action.equals("bWrite")) {
+                    if(rgui.input.getText().equals("")){
+                        System.out.println("Error");
+                    }
+                    else{
                     gpio.writePin(Integer.parseInt(rgui.input.getText()));
+                }
                 }
             }
         };
