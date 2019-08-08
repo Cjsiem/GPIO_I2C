@@ -1,6 +1,6 @@
 cd $HOME/git/GPIO_I2C/bin
 jar cf All.jar *
-sudo mkdir /.m2/repository/pins
-sudo mkdir /.m2/repository/pins/GPIOI2C
-sudo mkdir /.m2/repository/pins/GPIOI2C/1.0.0
-sudo cp All.jar /.m2/repository/pins/GPIOI2C/1.0.0
+sudo mkdir /.m2/repository/GPIO_I2C
+sudo mkdir /.m2/repository/GPIO_I2C/GPIO_I2C
+sudo mkdir /.m2/repository/GPIO_I2C/GPIO_I2C/1.0.0
+sudo cp All.jar /.m2/repository/GPIO_I2C/GPIO_I2C/1.0.0
