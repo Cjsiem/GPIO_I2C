@@ -1,0 +1,8 @@
+cd $HOME/git/GPIO_I2C/bin
+rm -r com
+echo creating com
+mkdir com
+cd ../
+./bin/CompileJNI
+./bin/CompileOther
+./bin/CreateJar
