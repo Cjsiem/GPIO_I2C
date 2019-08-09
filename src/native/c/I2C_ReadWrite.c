@@ -54,24 +54,20 @@ int I2C_Writing(int addr, unsigned char* buf, int bytes) {
     return a;
 }
 
-void I2C_Reading(int addr, char *buf, int bytes) {
+int I2C_Reading(int addr, char *buf, int bytes) {
     int file;
     char *filename = (char*)"/dev/i2c-1";
     if ((file = open(filename, O_RDONLY)) < 0) {
         printf("Failed to open the bus.");
-        buf[0] = -1;
-        buf[1] = 1;
+        return -1;
     }
     if (ioctl(file,I2C_SLAVE,addr) < 0) {
         printf("Failed to acquire bus access and/or talk to slave.\n");
-        buf[0] = -1;
-        buf[1] = 2;
+        return -2;
     }
     if (read(file,buf,bytes) != bytes) {
         printf("Failed to read from the i2c bus.\n");
-        printf("\n\n");
-        buf[0] = -1;
-        buf[1] = 3;
+        return -3;
     }
 }
 
@@ -88,7 +84,7 @@ JNIEXPORT jintArray JNICALL Java_com_rst_gpioi2c_i2c_JNI_I2C_1ReadWrite_cRead
     char* buf;
     char temp[size];
     buf = temp;
-    I2C_Reading(address, buf, size);
+    int a = I2C_Reading(address, buf, size);
     jintArray result;
     result = (*env)->NewIntArray(env, size);
     int i;
@@ -96,6 +92,9 @@ JNIEXPORT jintArray JNICALL Java_com_rst_gpioi2c_i2c_JNI_I2C_1ReadWrite_cRead
     for (i = 0; i < size; i++) {
         fill[i] = temp[i];
     }
+    if(a < 0){
+		fill[0] = a;
+	}
     (*env)->SetIntArrayRegion(env, result, 0, size, fill);
     return result;
 }

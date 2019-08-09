@@ -32,6 +32,9 @@ import java.awt.event.*;
 import java.io.*;
 import java.lang.Runtime.*;
 import java.util.*;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import com.rst.gpioi2c.i2c.JNI.*;
 import com.rst.gpioi2c.i2c.*;
 
@@ -82,8 +85,23 @@ public class I2CController {
                         System.out.println("error");
                     }
                     else {
-                        gui.answer.setText(intArraytoString(i2c.cRead(Integer.parseInt(gui.readAmount.getText()), Integer.parseInt(gui.readAddress.getText()))));
-                        gui.readAmount.setText("");
+                        int[] temp = i2c.cRead(Integer.parseInt(gui.readAmount.getText()), Integer.parseInt(gui.readAddress.getText()));
+                        if(temp[0] == -1) {
+                            JFrame frame = new JFrame("Read Error");
+                            JOptionPane.showMessageDialog(frame,"Failed to open the bus.");
+                        }
+                        else if(temp[0] == -2) {
+                            JFrame frame = new JFrame("Read Error");
+                            JOptionPane.showMessageDialog(frame,"Failed to acquire bus access and/or talk to slave.");
+                        }
+                        else if(temp[0] == -3) {
+                            JFrame frame = new JFrame("Read Error");
+                            JOptionPane.showMessageDialog(frame,"Failed to read from the i2c bus.\n");
+                        }
+                        else {
+                            gui.answer.setText(intArraytoString(temp));
+                            gui.readAmount.setText("");
+                        }
                     }
                 }
                 else if(action.equals("Write")) {
@@ -92,17 +110,30 @@ public class I2CController {
                     }
                     else {
                         writeAction(gui.writeBytes.getText());
-                        i2c.cWrite(writeArray, Integer.parseInt(gui.writeAddress.getText()));
+                        int temp = i2c.cWrite(writeArray, Integer.parseInt(gui.writeAddress.getText()));
                         gui.writeBytes.setText("");
+                        if(temp == -1) {
+                            JFrame frame = new JFrame("Write Error");
+                            JOptionPane.showMessageDialog(frame,"Failed to open the bus.");
+                        }
+                        else if(temp == -2) {
+                            JFrame frame = new JFrame("Write Error");
+                            JOptionPane.showMessageDialog(frame,"Failed to acquire bus access and/or talk to slave.");
+                        }
+                        else if(temp== -3) {
+                            JFrame frame = new JFrame("Write Error");
+                            JOptionPane.showMessageDialog(frame,"Failed to write to the i2c bus.\n");
+                        }
+
                     }
                 }
-                else if(action.equals("Clear")){
-					gui.writeAddress.setText("");
-					gui.readAddress.setText("");
-					gui.readAmount.setText("");
-					gui.writeBytes.setText("");
-					gui.answer.setText("");
-				}
+                else if(action.equals("Clear")) {
+                    gui.writeAddress.setText("");
+                    gui.readAddress.setText("");
+                    gui.readAmount.setText("");
+                    gui.writeBytes.setText("");
+                    gui.answer.setText("");
+                }
             }
         };
 
@@ -111,8 +142,6 @@ public class I2CController {
             this.gui = gui;
             gui.addButtonActionListener(al);
         }
-
-
 
 }
 

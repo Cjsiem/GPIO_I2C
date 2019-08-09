@@ -59,14 +59,14 @@ JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_Press_cPress
     isr_count = 0;
     if (wiringPiSetup () < 0) {
         fprintf (stderr, "Unable to setup wiringPi: %s\n", strerror (errno));
-        return 3;
+        return -1;
     }
 
     // set Pin 17/0 generate an interrupt on high-to-low transitions
     // and attach myInterrupt() to the interrupt
     if ( wiringPiISR (pinArray[pin], INT_EDGE_BOTH, &myInterrupt) < 0 ) {
         fprintf (stderr, "Unable to setup ISR: %s\n", strerror (errno));
-        return 4;
+        return -2;
     }
 
     pthread_mutex_lock(&isr_mtx);

@@ -54,7 +54,6 @@ JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cExport
 	return (0);
     }
     close(fda);
-    
     fd = open("/sys/class/gpio/export", O_WRONLY);
     if (-1 == fd) {
 	fprintf(stderr, "Failed to open export for writing!\n");
@@ -101,7 +100,7 @@ JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cDirection
 
     if (-1 == write(fd, &s_directions_str[IN == dir ? 0 : 3], IN == dir ? 2 : 3)) {
 	fprintf(stderr, "Failed to set direction!\n");
-	return(-1);
+	return(-2);
     }
     close(fd);
     return(0);
@@ -123,7 +122,7 @@ JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cGPIOWrite
 
     if (1 != write(fd, &s_values_str[LOW == value ? 0 : 1], 1)) {
 	fprintf(stderr, "Failed to write value!\n");
-	return(-1);
+	return(-2);
     }
 
     close(fd);
@@ -147,7 +146,7 @@ JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cGPIORead
 
     if (-1 == read(fd, value_str, 3)) {
 	fprintf(stderr, "Failed to read value!\n");
-	return(-1);
+	return(-2);
     }
 
     close(fd);
@@ -170,7 +169,7 @@ JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cReadDirection
 
     if (-1 == read(fd, value_str, 3)) {
 	fprintf(stderr, "Failed to read value!\n");
-	return(-1);
+	return(-2);
     }
 
     close(fd);

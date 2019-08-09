@@ -19,9 +19,11 @@
  * MA 02110-1301, USA.
  *
  *
- */
+*/
 package com.rst.gpioi2c.gpio;
-
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import com.rst.gpioi2c.gpio.JNI.*;
 
 public class GPIOPin {
@@ -33,30 +35,78 @@ public class GPIOPin {
 
         public GPIOPin(int temp) {
             pin = temp;
-            gpio.cExport(pin);
+            if(gpio.cExport(pin) != 0) {
+                JFrame frame = new JFrame("Export Error");
+                JOptionPane.showMessageDialog(frame,"Failed to open export for writing!\n");
+            };
         }
 
         public void cancelInterrupt() {
             press.cStopInterrupt();
         }
+        
         public void direction(int dir) {
-            gpio.cDirection(pin, dir);
+            int temp = gpio.cDirection(pin, dir);
+            if(temp ==  -1) {
+                JFrame frame = new JFrame("Direction Error");
+                JOptionPane.showMessageDialog(frame,"Failed to open gpio direction for writing!\n");
+            }
+            else if(temp == -2) {
+                JFrame frame = new JFrame("Direction Error");
+                JOptionPane.showMessageDialog(frame,"Failed to set direction!\n");
+            }
         }
 
+
         public int readPin() {
-            return gpio.cGPIORead(pin);
+            int temp = gpio.cGPIORead(pin);
+            if(temp ==  -1) {
+                JFrame frame = new JFrame("Read Error");
+                JOptionPane.showMessageDialog(frame,"Failed to open gpio value for reading!\n");
+            }
+            else if(temp == -2) {
+                JFrame frame = new JFrame("Read Error");
+                JOptionPane.showMessageDialog(frame,"Failed to Read value!\n");
+            }
+            return temp;
         }
 
         public void writePin(int value) {
-            gpio.cGPIOWrite(pin, value);
+            int temp = gpio.cGPIOWrite(pin, value);
+            if(temp ==  -1) {
+                JFrame frame = new JFrame("Write Error");
+                JOptionPane.showMessageDialog(frame,"Failed to open gpio value for writing!\n");
+            }
+            else if(temp == -2) {
+                JFrame frame = new JFrame("Write Error");
+                JOptionPane.showMessageDialog(frame,"Failed to write value!\n");
+            }
         }
 
         public int checkDirection() {
-            return gpio.cReadDirection(pin);
+            int temp = gpio.cReadDirection(pin);
+             if(temp ==  -1) {
+                JFrame frame = new JFrame("Read Direction Error");
+                JOptionPane.showMessageDialog(frame,"Failed to open gpio direction for reading!\n");
+            }
+            else if(temp == -2) {
+                JFrame frame = new JFrame("Read Direction Error");
+                JOptionPane.showMessageDialog(frame,"Failed to set reading!\n");
+            }
+            return temp;
         }
 
         public int pressInt() {
-            return press.cPress(pin);
+            int temp = press.cPress(pin);
+            if(temp ==  -1) {
+                JFrame frame = new JFrame("Press Error");
+                JOptionPane.showMessageDialog(frame,"Unable to setup wiringPi\n");
+            }
+            else if(temp == -2) {
+                JFrame frame = new JFrame("Press Error");
+                JOptionPane.showMessageDialog(frame,"Unable to setup ISR");
+            }
+            return temp;
         }
 }
 
