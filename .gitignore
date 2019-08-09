@@ -1,2 +1,4 @@
 /src/native/include/
 /bin/com/
+/bin/*.jar
+/src/native/c/*.so
