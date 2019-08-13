@@ -1,9 +1,7 @@
 cd $HOME/git/GPIO_I2C/src/native/c
-gcc -o libmyGPIOMethods.so -shared -fPIC -I/usr/lib/jvm/default-java/include -I/usr/lib/jvm/default-java/include/linux GPIOMethods.c -lc 
-gcc -o libmyPress.so -shared -fPIC -I/usr/lib/jvm/default-java/include -I/usr/lib/jvm/default-java/include/linux Press.c -lc -lwiringPi 
+gcc -o libmyGPIOMethods.so -shared -fPIC -I/usr/lib/jvm/default-java/include -I/usr/lib/jvm/default-java/include/linux GPIOMethods.c -lc -lwiringPi 
 gcc -o libmyI2C_ReadWrite.so -shared -fPIC -I/usr/lib/jvm/default-java/include -I/usr/lib/jvm/default-java/include/linux I2C_ReadWrite.c -lc 
 echo Finished Establishing .so libraries
 sudo cp libmyGPIOMethods.so /usr/lib
-sudo cp libmyPress.so /usr/lib
 sudo cp libmyI2C_ReadWrite.so /usr/lib
 echo Copied libraries to /usr/lib

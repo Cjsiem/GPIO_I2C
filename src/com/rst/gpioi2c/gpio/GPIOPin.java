@@ -30,8 +30,6 @@ public class GPIOPin {
 
         GPIOMethods gpio = new GPIOMethods();
         int pin;
-        Press press = new Press();
-        int stop = 0;
 
         public GPIOPin(int temp) {
             pin = temp;
@@ -42,10 +40,10 @@ public class GPIOPin {
         }
 
         public void cancelInterrupt() {
-            press.cStopInterrupt();
+            gpio.cStopInterrupt();
         }
         
-        public void direction(int dir) {
+        public void direction(boolean dir) {
             int temp = gpio.cDirection(pin, dir);
             if(temp ==  -1) {
                 JFrame frame = new JFrame("Direction Error");
@@ -71,7 +69,7 @@ public class GPIOPin {
             return temp;
         }
 
-        public void writePin(int value) {
+        public void writePin(boolean value) {
             int temp = gpio.cGPIOWrite(pin, value);
             if(temp ==  -1) {
                 JFrame frame = new JFrame("Write Error");
@@ -97,7 +95,7 @@ public class GPIOPin {
         }
 
         public int pressInt() {
-            int temp = press.cPress(pin);
+            int temp = gpio.cPress(pin);
             if(temp ==  -1) {
                 JFrame frame = new JFrame("Press Error");
                 JOptionPane.showMessageDialog(frame,"Unable to setup wiringPi\n");

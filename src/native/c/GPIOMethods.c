@@ -27,6 +27,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <wiringPi.h>
+#include <pthread.h>
+#include <errno.h>
+#include <string.h>
 
 #define BUFFER_MAX 3
 #define VALUE_MAX 30
@@ -37,6 +41,12 @@
 
 #define LOW  0
 #define HIGH 1
+
+#define BUTTON_PIN 0
+
+pthread_cond_t isr_cond = PTHREAD_COND_INITIALIZER;
+pthread_mutex_t isr_mtx = PTHREAD_MUTEX_INITIALIZER;
+unsigned int isr_count = 0;
 
 JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cExport
   (JNIEnv *env, jclass jobj, jint pin){
@@ -85,7 +95,7 @@ JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cUnExport
   }
   
 JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cDirection
-  (JNIEnv *env, jclass jobj, jint pin, jint dir){
+  (JNIEnv *env, jclass jobj, jint pin, jboolean dir){
 	  
     static const char s_directions_str[]  = "in\0out";
     char path[DIRECTION_MAX];
@@ -107,7 +117,7 @@ JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cDirection
   }
   
 JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cGPIOWrite
-  (JNIEnv *env, jclass jobj, jint pin, jint value){
+  (JNIEnv *env, jclass jobj, jint pin, jboolean value){
     static const char s_values_str[] = "01";
     
     char path[VALUE_MAX];
@@ -179,6 +189,48 @@ JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cReadDirection
     else{
 	return 1;
     }
+  }
+
+void myInterrupt(void)
+{
+    pthread_mutex_lock(&isr_mtx);
+    isr_count = 1;
+    pthread_cond_signal(&isr_cond);
+    pthread_mutex_unlock(&isr_mtx);
+
+}
+int pinArray[27] = {30,31, 8,9,7, 21,22,11, 10, 13, 12, 14, 26, 23, 15, 16, 27, 0, 1, 24, 28, 29, 3, 4, 5, 6, 25};
+
+JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cPress
+(JNIEnv *env, jobject jobj, jint pin, jint d)
+{
+    isr_count = 0;
+    if (wiringPiSetup () < 0) {
+        fprintf (stderr, "Unable to setup wiringPi: %s\n", strerror (errno));
+        return -1;
+    }
+
+    // set Pin 17/0 generate an interrupt on high-to-low transitions
+    // and attach myInterrupt() to the interrupt
+    if ( wiringPiISR (pinArray[pin], INT_EDGE_BOTH, &myInterrupt) < 0 ) {
+        fprintf (stderr, "Unable to setup ISR: %s\n", strerror (errno));
+        return -2;
+    }
+
+    pthread_mutex_lock(&isr_mtx);
+    pthread_cond_wait(&isr_cond, &isr_mtx);
+    pthread_mutex_unlock(&isr_mtx);
+    
+    return isr_count;
+
+}
+
+JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cStopInterrupt
+  (JNIEnv *env, jobject jobj){
+    pthread_mutex_lock(&isr_mtx);
+    isr_count = 0;
+    pthread_cond_signal(&isr_cond);
+    pthread_mutex_unlock(&isr_mtx);
   }
 
 

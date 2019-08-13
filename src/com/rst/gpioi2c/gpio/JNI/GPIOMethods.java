@@ -4,10 +4,12 @@ public class GPIOMethods
 {
   public native int cExport(int pin);
   public native int cUnExport(int pin);   
-  public native int cDirection(int pin, int direction);
-  public native int cGPIOWrite(int pin, int value);
+  public native int cDirection(int pin, boolean dir);
+  public native int cGPIOWrite(int pin, boolean value);
   public native int cGPIORead(int pin);
   public native int cReadDirection(int pin);
+  public native int cPress(int pin);//Declaring the native function
+  public native int cStopInterrupt();
   
                           
   static

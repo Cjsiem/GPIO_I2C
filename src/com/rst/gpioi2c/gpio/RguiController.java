@@ -46,18 +46,20 @@ public class RguiController {
                 if (action.equals("Read")) {
                     gpio.cancelInterrupt();
                     rgui.interruptLabel.setText("Off");
-                    rgui.bWrite.setEnabled(false);
                     rgui.bRead.setEnabled(true);
                     rgui.interrupt.setEnabled(true);
-                    gpio.direction(0);
+                    rgui.on.setEnabled(false);
+                    rgui.off.setEnabled(false);
+                    gpio.direction(false);
                 }
                 else if(action.equals("Write")) {
                     gpio.cancelInterrupt();
                     rgui.interruptLabel.setText("Off");
-                    rgui.bWrite.setEnabled(true);
                     rgui.bRead.setEnabled(true);
                     rgui.interrupt.setEnabled(false);
-                    gpio.direction(1);
+                    rgui.on.setEnabled(true);
+                    rgui.off.setEnabled(true);
+                    gpio.direction(true);
                 }
                 else if(action.equals("Interrupt")) {
                     if(rgui.interrupt.isSelected()) {
@@ -73,13 +75,11 @@ public class RguiController {
                 else if(action.equals("bRead")) {
                     rgui.output.setText(Integer.toString(gpio.readPin()));
                 }
-                else if(action.equals("bWrite")) {
-                    if(rgui.input.getText().equals("")){
-                        System.out.println("Error");
-                    }
-                    else{
-                    gpio.writePin(Integer.parseInt(rgui.input.getText()));
+                else if(action.equals("On")) {
+                    gpio.writePin(true);
                 }
+                else if(action.equals("Off")){
+                    gpio.writePin(false);
                 }
             }
         };
@@ -92,7 +92,8 @@ public class RguiController {
             int d = gpio.checkDirection();
             this.rgui.read.setSelected(d == 0);
             this.rgui.write.setSelected(d == 1);
-            this.rgui.bWrite.setEnabled(d == 1);
+            this.rgui.on.setEnabled(d == 1);
+            this.rgui.off.setEnabled(d == 1);
         }
 
         private static class interruptThread extends Thread {

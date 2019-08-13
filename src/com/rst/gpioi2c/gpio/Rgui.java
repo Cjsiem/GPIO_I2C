@@ -44,8 +44,9 @@ public class Rgui extends JPanel {
         JButton bRead = new JButton("Read");
         JLabel output = new JLabel();
 
-        JButton bWrite = new JButton("Write");
-        JTextField input = new JTextField(1);
+        ButtonGroup group2 = new ButtonGroup();
+        JRadioButtonMenuItem on = new JRadioButtonMenuItem("On");
+        JRadioButtonMenuItem off = new JRadioButtonMenuItem("Off");
 
         JToggleButton interrupt = new JToggleButton("Interrupt");
         JLabel interruptLabel = new JLabel("Off");
@@ -56,7 +57,8 @@ public class Rgui extends JPanel {
             write.addActionListener(al);
             interrupt.addActionListener(al);
             bRead.addActionListener(al);
-            bWrite.addActionListener(al);
+            on.addActionListener(al);
+            off.addActionListener(al);
         }
 
         public Rgui(int temp) {
@@ -66,19 +68,24 @@ public class Rgui extends JPanel {
             write.setActionCommand("Write");
             interrupt.setActionCommand("Interrupt");
             bRead.setActionCommand("bRead");
-            bWrite.setActionCommand("bWrite");
+            on.setActionCommand("On");
+            off.setActionCommand("Off");
             
             group.add(read);
             group.add(write);
 
+
+            group2.add(on);
+            group2.add(off);
+            
             this.setLayout(new GridLayout(1,7));
             this.add(label);
             this.add(write);
             this.add(read);
             this.add(bRead);
             this.add(output);
-            this.add(bWrite);
-            this.add(input);
+            this.add(on);
+            this.add(off);
             this.add(interrupt);
             this.add(interruptLabel);
 
