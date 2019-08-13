@@ -44,7 +44,7 @@ public class GPIOPin {
         }
         
         public void direction(boolean dir) {
-            int temp = gpio.cDirection(pin, dir);
+            int temp = gpio.cDirection(pin, dir); //dir is 0 for read and 1 for write
             if(temp ==  -1) {
                 JFrame frame = new JFrame("Direction Error");
                 JOptionPane.showMessageDialog(frame,"Failed to open gpio direction for writing!\n");
