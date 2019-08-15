@@ -199,7 +199,7 @@ void myInterrupt(void)
     pthread_mutex_unlock(&isr_mtx);
 
 }
-int pinArray[27] = {30,31, 8,9,7, 21,22,11, 10, 13, 12, 14, 26, 23, 15, 16, 27, 0, 1, 24, 28, 29, 3, 4, 5, 6, 25};
+int pinArray[28] = {30,31, 8,9,7, 21,22,11, 10, 13, 12, 14, 26, 23, 15, 16, 27, 0, 1, 24, 28, 29, 3, 4, 5, 6, 25, 2};
 
 JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cPress
 (JNIEnv *env, jobject jobj, jint pin, jint d)
