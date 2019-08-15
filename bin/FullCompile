@@ -7,7 +7,3 @@ cd ../
 ./bin/CompileOther
 ./bin/FinishJNI
 ./bin/CreateJar
-
-
-
-
