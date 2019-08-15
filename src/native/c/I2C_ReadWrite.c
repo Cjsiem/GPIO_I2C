@@ -76,7 +76,7 @@ JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_i2c_JNI_I2C_1ReadWrite_cWrite
     int n = (*env)->GetArrayLength(env, data);
     jboolean isCopy;
     unsigned char* buf = (*env)->GetByteArrayElements(env, data, &isCopy);
-    return I2C_Writing(address, buf, n);
+    return I2C_Writing((address / 2), buf, n);
 }
 
 JNIEXPORT jintArray JNICALL Java_com_rst_gpioi2c_i2c_JNI_I2C_1ReadWrite_cRead
@@ -84,7 +84,7 @@ JNIEXPORT jintArray JNICALL Java_com_rst_gpioi2c_i2c_JNI_I2C_1ReadWrite_cRead
     char* buf;
     char temp[size];
     buf = temp;
-    int a = I2C_Reading(address, buf, size);
+    int a = I2C_Reading((address / 2), buf, size);
     jintArray result;
     result = (*env)->NewIntArray(env, size);
     int i;
