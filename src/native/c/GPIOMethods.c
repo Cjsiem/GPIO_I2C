@@ -212,7 +212,7 @@ JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_gpio_JNI_GPIOMethods_cPress
 
     // set Pin 17/0 generate an interrupt on high-to-low transitions
     // and attach myInterrupt() to the interrupt
-    if ( wiringPiISR (pinArray[pin], INT_EDGE_BOTH, &myInterrupt) < 0 ) {
+    if ( wiringPiISR (pinArray[pin], INT_EDGE_RISING, &myInterrupt) < 0 ) {
         fprintf (stderr, "Unable to setup ISR: %s\n", strerror (errno));
         return -2;
     }
