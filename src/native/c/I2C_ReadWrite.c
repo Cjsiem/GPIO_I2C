@@ -51,6 +51,7 @@ int I2C_Writing(int addr, unsigned char* buf, int bytes) {
         printf("\n\n");
         return -3;
     }
+		close(file);
     return a;
 }
 
@@ -69,6 +70,7 @@ int I2C_Reading(int addr, char *buf, int bytes) {
         printf("Failed to read from the i2c bus.\n");
         return -3;
     }
+		close(file);
 }
 
 JNIEXPORT jint JNICALL Java_com_rst_gpioi2c_i2c_JNI_I2C_1ReadWrite_cWrite
